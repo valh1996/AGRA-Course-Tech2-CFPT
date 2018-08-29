@@ -1,0 +1,70 @@
+body {
+    background: #e9ebee;
+}
+
+#header{
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+#header #logo {
+    max-width: 100%;
+    min-width: 100%;
+}
+
+#header #title {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+#header #account {
+    font-size: 1rem;
+    color: #91949b;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+#header .nav {
+    margin-top: 10px;
+}
+
+#header .nav .nav-link {
+    color: #353638;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+}
+
+#header .nav .nav-link.active {
+    background: #F5F6F7;
+    border: 1px solid #d8d8d8;
+    color: black;
+}
+
+#header .nav .nav-link:hover{
+    background: #F5F6F7;
+}
+
+.thumbnail-header {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 300px;
+}
+
+#content {
+    margin-top: 30px;
+}
+
+#content .custom-card {
+    border: none;
+    border-radius: 0px;
+}
+
+#content #new-post .msg {
+    outline: none;
+    border: none;
+    border-radius: 0px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: none;
+}
