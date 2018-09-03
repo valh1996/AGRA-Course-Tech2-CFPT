@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('home');
 });
+
+Route::post('/post/add', 'PostController@store')->name('post.add');

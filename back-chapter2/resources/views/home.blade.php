@@ -35,19 +35,30 @@
                 </div>
                 <!-- content   -->
                 <div id="content" class="col-md-12">
-                    <form id="new-post" method="post" enctype="multipart/form-data">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="errors">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form id="new-post" method="post" action="{{ route('post.add') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="card custom-card">
                             <div class="card-header">
                                 <i class="fas fa-pen-square"></i> Ajouter un post
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <textarea class="form-control msg" rows="3" placeholder="Ecrire une publication..."></textarea>
+                                    <textarea class="form-control msg" rows="3" name="message" placeholder="Ecrire une publication..."></textarea>
                                 </div>
                             </div>
                             <div class="card-footer text-muted">
                                 <label class="btn btn-default">
-                                    <i class="fas fa-camera-retro"></i> <input type="file" accept="image/*" multiple hidden>
+                                    <i class="fas fa-camera-retro"></i> <input type="file" name="images" accept="image/*" multiple hidden>
                                 </label>
                                 <button type="submit" class="btn btn-primary">Ajouter</button>
                             </div>
