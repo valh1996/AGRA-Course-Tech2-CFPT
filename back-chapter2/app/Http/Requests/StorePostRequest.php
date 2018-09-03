@@ -25,7 +25,7 @@ class StorePostRequest extends FormRequest
     {
         return [
             'message' => 'required|string',
-            'images' => 'image'
+            'cover_images.*' => 'image|max:3000'
         ];
     }
 
@@ -34,7 +34,7 @@ class StorePostRequest extends FormRequest
         return [
             'message.required' => 'Veuillez saisir un texte pour votre annonce.',
             'message.string' => 'Veuillez saisir une chaîne de caractère',
-            'images.image' => 'Vous ne pouvez uploader que des images.',
+            'cover_images.*.image' => 'Vous ne pouvez uploader que des images.',
         ];
     }
 }

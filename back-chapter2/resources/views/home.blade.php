@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-footer text-muted">
                                 <label class="btn btn-default">
-                                    <i class="fas fa-camera-retro"></i> <input type="file" name="images" accept="image/*" multiple hidden>
+                                    <i class="fas fa-camera-retro"></i> <input type="file" name="cover_images[]" accept="image/*" multiple hidden>
                                 </label>
                                 <button type="submit" class="btn btn-primary">Ajouter</button>
                             </div>
