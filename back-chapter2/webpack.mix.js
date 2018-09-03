@@ -11,8 +11,8 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js');
-
-mix.styles([
-    'resources/assets/css/styles.css',
-], 'public/css/all.css');
+mix.js('resources/assets/js/app.js', 'public/js')
+   .styles([
+        'resources/assets/css/styles.css',
+    ], 'public/css/all.min.css')
+   .version();
