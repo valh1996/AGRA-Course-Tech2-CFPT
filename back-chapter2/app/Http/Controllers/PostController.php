@@ -29,9 +29,13 @@ class PostController extends Controller
 
                 //save in storage/app...
                 $path = self::FOLDER_PATH . '/' . $filename;
-                $imgResize->save(storage_path("app/{$path}"));
-
-                $paths[] = new \App\Image(['name' => $path]);
+                
+                try {
+                    $imgResize->save(storage_path("app/{$path}"));
+                    $paths[] = new \App\Image(['name' => $path]);
+                } catch (Exception $e) {
+                    //upload failed... image isn't saved
+                }
             }
         }
         
