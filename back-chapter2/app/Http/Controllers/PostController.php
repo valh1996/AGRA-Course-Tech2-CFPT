@@ -10,6 +10,8 @@ use App\Post;
 class PostController extends Controller
 {
     const FOLDER_PATH = 'cover_images';
+    const DEFAULT_IMG_WIDTH = 1024;
+    const DEFAULT_IMG_HEIGHT = 768;
 
     public function store(StorePostRequest $request)
     {
@@ -19,7 +21,17 @@ class PostController extends Controller
         if (is_array($cover_images)) {
             foreach ($cover_images as $cover_image) {
                 $filename = "cover_image-" . uniqid(time()) . ".{$cover_image->getClientOriginalExtension()}";
-                $paths[] = new \App\Image(['name' => $cover_image->storeAs(self::FOLDER_PATH, $filename)]);
+
+                $imgResize = Image::make($cover_image)->fit(self::DEFAULT_IMG_WIDTH, self::DEFAULT_IMG_HEIGHT, function ($constraint) {
+                    //keep the maximal original image size
+                    $constraint->upsize();
+                });
+
+                //save in storage/app...
+                $path = self::FOLDER_PATH . '/' . $filename;
+                $imgResize->save(storage_path("app/{$path}"));
+
+                $paths[] = new \App\Image(['name' => $path]);
             }
         }
         
