@@ -15,6 +15,13 @@ body {
     color: white; 
 }
 
+.alert-success {
+    border-radius: 0px;
+    border: none;
+    background: #a2f450;
+    color: white; 
+}
+
 header {
     margin-top: 15px;
     margin-bottom: 0px;

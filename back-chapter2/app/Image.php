@@ -11,13 +11,13 @@ class Image extends Model
      *
      * @var array
      */
-    protected $fillable = ['image'];
+    protected $fillable = ['name', 'post_id'];
 
     /**
      * Get the blog post for the images
      */
     public function post()
     {
-        $this->hasOne(Post::class);
+        $this->belongsTo(Post::class);
     }
 }
