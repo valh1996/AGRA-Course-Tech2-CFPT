@@ -11,8 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
+Route::get('/', 'PostController@index')->name('post.index');
 Route::post('/post/add', 'PostController@store')->name('post.add');

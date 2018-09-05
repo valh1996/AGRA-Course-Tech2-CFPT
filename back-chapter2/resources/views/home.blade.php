@@ -53,7 +53,7 @@
 
                 <form id="new-post" method="post" action="{{ route('post.add') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="card custom-card">
+                        <div class="card custom-card first">
                             <div class="card-header">
                                 <i class="fas fa-pen-square"></i> Ajouter un post
                             </div>
@@ -70,6 +70,27 @@
                             </div>
                         </div>
                     </form>
+
+                    @foreach ($posts as $post)
+                        <div class="card custom-card">
+                            <div class="card-header">
+                                <i class="fas fa-edit"></i> Modifier
+                                <i class="fas fa-trash-alt"></i> Supprimer
+                            </div>
+                            <div class="card-body">
+                                <p>{{ $post->description}}</p>
+                            </div>
+                            <div class="card-footer text-muted">    
+                                @foreach ($post->images as $image)
+                                    <a href="{{ url("storage/{$image->name}") }}" target="_blank">
+                                        <img src="{{ url("storage/{$image->name}") }}" class="img-responsive">
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+
+                    {{ $posts->links() }}
                 </div>
             </div>
         </div>

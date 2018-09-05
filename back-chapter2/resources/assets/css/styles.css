@@ -22,6 +22,14 @@ body {
     color: white; 
 }
 
+.fa-edit {
+    color: #007bff;
+}
+
+.fa-trash-alt {
+    color: #e23434;
+}
+
 header {
     margin-top: 15px;
     margin-bottom: 0px;
@@ -87,4 +95,21 @@ header .nav .nav-link:hover{
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
     box-shadow: none;
+}
+
+#content .custom-card.first {
+    border: 2px solid gold!important;
+}
+
+#content .custom-card:not(:first-child) {
+    margin-top: 20px;
+}
+
+#content .text-muted img {
+    width: 20%;
+    max-width: 20%;
+}
+
+#content .pagination {
+    margin-top: 10px;
 }

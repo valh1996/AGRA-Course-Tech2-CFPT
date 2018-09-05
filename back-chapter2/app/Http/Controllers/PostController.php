@@ -13,6 +13,13 @@ class PostController extends Controller
     const DEFAULT_IMG_WIDTH = 1024;
     const DEFAULT_IMG_HEIGHT = 768;
 
+    public function index()
+    {
+        $posts = Post::paginate(3);
+
+        return view('home', ['posts' => $posts]);
+    }
+
     public function store(StorePostRequest $request)
     {
         $cover_images = $request->file('cover_images');
@@ -31,7 +38,7 @@ class PostController extends Controller
                 $path = self::FOLDER_PATH . '/' . $filename;
                 
                 try {
-                    $imgResize->save(storage_path("app/{$path}"));
+                    $imgResize->save(storage_path("app/public/{$path}"));
                     $paths[] = new \App\Image(['name' => $path]);
                 } catch (Exception $e) {
                     //upload failed... image isn't saved
