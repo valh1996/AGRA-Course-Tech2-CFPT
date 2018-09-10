@@ -13,6 +13,11 @@ class PostController extends Controller
     const DEFAULT_IMG_WIDTH = 1024;
     const DEFAULT_IMG_HEIGHT = 768;
 
+    /**
+     * show all post
+     * 
+     * @return Response 
+     */
     public function index()
     {
         $posts = Post::paginate(3);
@@ -20,6 +25,13 @@ class PostController extends Controller
         return view('home', ['posts' => $posts]);
     }
 
+    /**
+     * Store a new post
+     * 
+     * @param App\Http\Requests\StorePostRequest $request
+     * 
+     * @return Response 
+     */
     public function store(StorePostRequest $request)
     {
         $cover_images = $request->file('cover_images');
@@ -59,4 +71,15 @@ class PostController extends Controller
 
         return back()->with('status', 'Votre annonce a été publiée !');
     }
+
+    /**
+     * Delete a given post
+     * 
+     * @param int $id   Post Identifier
+     */
+    public function delete($id)
+    {
+
+    }
+
 }
