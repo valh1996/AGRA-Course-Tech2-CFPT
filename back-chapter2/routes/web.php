@@ -13,3 +13,4 @@
 
 Route::get('/', 'PostController@index')->name('post.index');
 Route::post('/post/add', 'PostController@store')->name('post.add');
+Route::delete('/post/{id}/del', 'PostController@delete')->where(['id' => '[0-9]+'])->name('post.del');

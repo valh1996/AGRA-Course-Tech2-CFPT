@@ -74,8 +74,21 @@
                     @foreach ($posts as $post)
                         <div class="card custom-card">
                             <div class="card-header">
-                                <i class="fas fa-edit"></i> Modifier
-                                <i class="fas fa-trash-alt"></i> Supprimer
+                                <form method="post" action="{{ route('post.del', ['id' => $post->id], false) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="put" />
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-edit"></i> Modifier
+                                    </button>
+                                </form>
+
+                                <form method="post" action="{{ route('post.del', ['id' => $post->id], false) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-default" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')">
+                                        <i class="fas fa-trash-alt"></i> Supprimer
+                                    </button>
+                                </form>
                             </div>
                             <div class="card-body">
                                 <p>{{ $post->description}}</p>

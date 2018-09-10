@@ -25,7 +25,7 @@ class StorePostRequest extends FormRequest
     {
         return [
             'message' => 'required|string',
-            'cover_images.*' => 'image|max:3000'
+            'cover_images.*' => 'image|max:3072'
         ];
     }
 

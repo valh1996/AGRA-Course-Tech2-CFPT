@@ -110,6 +110,10 @@ header .nav .nav-link:hover{
     max-width: 20%;
 }
 
+#content .card-header form {
+    float: left;
+}
+
 #content .pagination {
     margin-top: 10px;
 }

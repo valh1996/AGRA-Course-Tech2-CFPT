@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use Image;
 use App\Post;
+use DB;
 
 class PostController extends Controller
 {
@@ -34,41 +35,44 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $cover_images = $request->file('cover_images');
-        $paths = [];
+        DB::transaction(function () {
+            
+            $cover_images = $request->file('cover_images');
+            $paths = [];
 
-        if (is_array($cover_images)) {
-            foreach ($cover_images as $cover_image) {
-                $filename = "cover_image-" . uniqid(time()) . ".{$cover_image->getClientOriginalExtension()}";
+            if (is_array($cover_images)) {
+                foreach ($cover_images as $cover_image) {
+                    $filename = "cover_image-" . uniqid(time()) . ".{$cover_image->getClientOriginalExtension()}";
 
-                $imgResize = Image::make($cover_image)->fit(self::DEFAULT_IMG_WIDTH, self::DEFAULT_IMG_HEIGHT, function ($constraint) {
-                    //keep the maximal original image size
-                    $constraint->upsize();
-                });
+                    $imgResize = Image::make($cover_image)->fit(self::DEFAULT_IMG_WIDTH, self::DEFAULT_IMG_HEIGHT, function ($constraint) {
+                        //keep the maximal original image size
+                        $constraint->upsize();
+                    });
 
-                //save in storage/app...
-                $path = self::FOLDER_PATH . '/' . $filename;
-                
-                try {
-                    $imgResize->save(storage_path("app/public/{$path}"));
-                    $paths[] = new \App\Image(['name' => $path]);
-                } catch (Exception $e) {
-                    //upload failed... image isn't saved
+                    //save in storage/app...
+                    $path = self::FOLDER_PATH . '/' . $filename;
+                    
+                    try {
+                        $imgResize->save(storage_path("app/public/{$path}"));
+                        $paths[] = new \App\Image(['name' => $path]);
+                    } catch (Exception $e) {
+                        //upload failed... image isn't saved
+                    }
                 }
             }
-        }
-        
-        //create new post
-        $post = new Post();
-        $post->description = $request->message;
-        
-        //attach images to the post
-        if ($post->save()) {
-            if (count($paths) > 0) {
-                $post->images()->saveMany($paths);
+            
+            //create new post
+            $post = new Post();
+            $post->description = $request->message;
+            
+            //attach images to the post
+            if ($post->save()) {
+                if (count($paths) > 0) {
+                    $post->images()->saveMany($paths);
+                }
             }
-        }
-
+        });
+        
         return back()->with('status', 'Votre annonce a été publiée !');
     }
 
@@ -79,7 +83,7 @@ class PostController extends Controller
      */
     public function delete($id)
     {
-
+        
     }
 
 }
