@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use Image;
 use App\Post;
 use DB;
+use Storage;
 
 class PostController extends Controller
 {
@@ -35,7 +36,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        DB::transaction(function () {
+        DB::transaction(function () use ($request) {
             
             $cover_images = $request->file('cover_images');
             $paths = [];
@@ -72,7 +73,7 @@ class PostController extends Controller
                 }
             }
         });
-        
+
         return back()->with('status', 'Votre annonce a été publiée !');
     }
 
@@ -83,7 +84,22 @@ class PostController extends Controller
      */
     public function delete($id)
     {
-        
+        DB::transaction(function () use ($id) {
+            $post = Post::find($id);
+
+            $paths = [];
+
+            foreach($post->images as $image) {
+                $paths[] = "public/{$image->name}";
+            }
+
+            Storage::delete($paths);
+
+            $post->images()->delete();
+            $post->delete();
+        });
+
+        return back()->with('status', 'L\'annonce a été supprimée !');
     }
 
 }
