@@ -47330,6 +47330,8 @@ var app = new Vue({
   el: '#app'
 });
 
+var dropzone = new Dropzone("#draggable");
+
 /***/ }),
 
 /***/ "./resources/assets/js/bootstrap.js":

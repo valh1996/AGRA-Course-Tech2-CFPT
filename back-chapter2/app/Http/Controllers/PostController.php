@@ -69,10 +69,18 @@ class PostController extends Controller
             //attach images to the post
             if ($post->save()) {
                 if (count($paths) > 0) {
-                    $post->images()->saveMany($paths);
+                    if (!$post->images()->saveMany($paths)) {
+                        $deleteImg = [];
+
+                        foreach ($paths as $image) {
+                            $deleteImg[] = "public/{$image->name}";
+                        }
+
+                        Storage::delete($deleteImg);
+                    }
                 }
             }
-        });
+        }, 1);
 
         return back()->with('status', 'Votre annonce a été publiée !');
     }
