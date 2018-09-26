@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
     <link rel="stylesheet" href="{{ mix('/css/all.min.css') }}">
   </head>
   <body>
@@ -74,21 +75,24 @@
                     @foreach ($posts as $post)
                         <div class="card custom-card">
                             <div class="card-header">
-                                <form method="post" action="{{ route('post.del', ['id' => $post->id], false) }}">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="put" />
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-edit"></i> Modifier
-                                    </button>
-                                </form>
+                                <div class="float-left">
+                                    <form method="post" action="{{ route('post.del', ['id' => $post->id], false) }}">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="put" />
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </form>
 
-                                <form method="post" action="{{ route('post.del', ['id' => $post->id], false) }}">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-default" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')">
-                                        <i class="fas fa-trash-alt"></i> Supprimer
-                                    </button>
-                                </form>
+                                    <form method="post" action="{{ route('post.del', ['id' => $post->id], false) }}">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-default" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="float-right publied_at">Cette annonce a été publiée {{ $post->created_at->diffForHumans() }}</div>
                             </div>
                             <div class="card-body">
                                 <p>{{ $post->description}}</p>
@@ -114,5 +118,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
-    </body>
+    <script src="{{ mix('/js/all.min.js') }}"></script>
+  </body>
 </html>

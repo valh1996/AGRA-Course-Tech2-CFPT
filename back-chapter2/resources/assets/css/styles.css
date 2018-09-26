@@ -30,6 +30,11 @@ body {
     color: #e23434;
 }
 
+.btn-default {
+    background: #F7F7F7;
+    border: none;
+}
+
 header {
     margin-top: 15px;
     margin-bottom: 0px;
@@ -116,4 +121,8 @@ header .nav .nav-link:hover{
 
 #content .pagination {
     margin-top: 10px;
+}
+
+#content .publied_at {
+    margin-top: 0.4em;
 }
