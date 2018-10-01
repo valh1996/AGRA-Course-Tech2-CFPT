@@ -36,9 +36,10 @@
                 </div>
                 <!-- content   -->
                 <div id="content" class="col-md-12">
-                    @if (session('status'))
-                        <div class="alert alert-success">
+                    @if (session('status') && session('error_messages'))
+                        <div class="alert alert-{{ (session('error_messages') )? 'danger' : 'success'}}">
                             {{ session('status') }}
+                            {{ session('error_messages') }}
                         </div>
                     @endif
 

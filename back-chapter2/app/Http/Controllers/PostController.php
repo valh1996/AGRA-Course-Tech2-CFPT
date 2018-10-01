@@ -89,23 +89,52 @@ class PostController extends Controller
      * Delete a given post
      * 
      * @param int $id   Post Identifier
+     * 
+     * @return Response 
      */
     public function delete($id)
     {
-        DB::transaction(function () use ($id) {
+        $tmpPaths = [];
+
+        try {
+            DB::beginTransaction();
+
             $post = Post::find($id);
 
-            $paths = [];
-
-            foreach($post->images as $image) {
-                $paths[] = "public/{$image->name}";
+            foreach ($post->images as $image) {
+                $path = "public/{$image->name}";
+                $tmpPath = "{$image->name}";
+                $tmpPaths[] = $tmpPath;
+                Storage::move($path, "delete/{$tmpPath}");
             }
 
-            Storage::delete($paths);
+            if (count($post->images()->delete()) > 0) {
+                $postDeleted = $post->images()->delete();
+            }
 
-            $post->images()->delete();
-            $post->delete();
-        });
+            if (!$post->delete() || $postDeleted) {
+                throw new \Exception('Unable to delete images from database!');
+            }
+
+            DB::commit();
+
+            foreach ($tmpPaths as $tmp) {
+                Storage::delete("delete/{$tmp}");
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            foreach ($tmpPaths as $tmp) {
+                $currentFile = "public/{$tmp}";
+                if (!Storage::exists($currentFile)) {
+                    Storage::move("delete/$tmp", $currentFile);
+                }
+            }
+
+            return back()->with('error_messages', 'Des erreurs sont survenues durant la publication !');
+
+        }
 
         return back()->with('status', 'L\'annonce a été supprimée !');
     }
