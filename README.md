@@ -17,11 +17,11 @@ Plus d'informations ici : https://laravel.com/docs/5.6#installation
 
 ### À l'intérieur du répertoire "backend"
 
-* Téléchargement des dépendances composer : composer install
-* Téléchargement des dépendances npm : npm install
+* Télécharger les dépendances composer : composer install
+* Télécharger les dépendances npm : npm install
 * Compiler les assets (css & javascript) : npm run dev
-* Création d'un fichier ".env" à la racine
-* Copier le contenu du fichier ".env.example" Ã  l'intérieur du fichier .env et sauvegarder
+* créer le fichier ".env" à la racine
+* Copier le contenu du fichier ".env.example" à l'intérieur du fichier .env et sauvegarder
 * Générer une nouvelle clé pour l'application : php artisan key:generate
 * Ouvrir à  nouveau le fichier .env et modifier uniquement les variables "APP_", "DB_". Puis sauvegarder et quitter...
 * Déployer les tables dans la base de données (/!\ configurer .env avant) : php artisan migrate
