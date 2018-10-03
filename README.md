@@ -17,7 +17,7 @@ Plus d'informations ici : https://laravel.com/docs/5.6#installation
 
 ### À l'intérieur du répertoire "backend"
 
-* Télécharger les dépendances composer : composer install
+* Télécharger les dépendances composer : `composer install`
 * Télécharger les dépendances npm : npm install
 * Compiler les assets (css & javascript) : npm run dev
 * créer le fichier ".env" à la racine
