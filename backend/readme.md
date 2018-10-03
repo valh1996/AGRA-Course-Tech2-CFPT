@@ -1,6 +1,6 @@
 ## Déploiement de l'application
 
-###Prérequis Laravel
+### Prérequis Laravel
 * PHP >= 7.1.3
 * Extension PHP : OpenSSL
 * Extension PHP : PDO
@@ -12,7 +12,7 @@
 
 Plus d'informations ici : https://laravel.com/docs/5.4#installation
 
-###À l'intérieur du répertoire backend
+### À l'intérieur du répertoire backend
 
 * Téléchargement des dépendances composer : composer install
 * Téléchargement des dépendances npm : npm install
