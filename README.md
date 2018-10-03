@@ -1,5 +1,5 @@
 # AGRA-Course-Tech2-CFPT
-Courses to remember the basics of the web
+Cours pour nous rappeler les bases du web. Effectué au CFPT, à Genève.
 
 ## Déploiement de l'application
 
@@ -13,12 +13,13 @@ Courses to remember the basics of the web
 * Extension PHP : Ctype
 * Extension PHP : JSON
 
-Plus d'informations ici : https://laravel.com/docs/5.4#installation
+Plus d'informations ici : https://laravel.com/docs/5.6#installation
 
 ### À l'intérieur du répertoire backend
 
 * Téléchargement des dépendances composer : composer install
 * Téléchargement des dépendances npm : npm install
+* Compiler les assets (css & javascript) : npm run dev
 * Création d'un fichier ".env" à la racine
 * Copier le contenu du fichier ".env.example" Ã  l'intérieur du fichier .env et sauvegarder
 * Générer une nouvelle clé pour l'application : php artisan key:generate
