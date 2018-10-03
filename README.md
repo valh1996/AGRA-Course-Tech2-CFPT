@@ -1,2 +1,27 @@
 # AGRA-Course-Tech2-CFPT
 Courses to remember the basics of the web
+
+## Déploiement de l'application
+
+### Prérequis Laravel
+* PHP >= 7.1.3
+* Extension PHP : OpenSSL
+* Extension PHP : PDO
+* Extension PHP : Mbstring
+* Extension PHP : Tokenizer
+* Extension PHP : XML
+* Extension PHP : Ctype
+* Extension PHP : JSON
+
+Plus d'informations ici : https://laravel.com/docs/5.4#installation
+
+### À l'intérieur du répertoire backend
+
+* Téléchargement des dépendances composer : composer install
+* Téléchargement des dépendances npm : npm install
+* Création d'un fichier ".env" à la racine
+* Copier le contenu du fichier ".env.example" Ã  l'intérieur du fichier .env et sauvegarder
+* Générer une nouvelle clé pour l'application : php artisan key:generate
+* Ouvrir à  nouveau le fichier .env et modifier uniquement les variables "APP_", "DB_". Puis sauvegarder et quitter...
+* Déployer les tables dans la base de données (/!\ configurer .env avant) : php artisan migrate
+* Se rendre à la racine du site /public ou configurer le virtualhost pour qu'il pointe dans le dossier public
