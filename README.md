@@ -15,7 +15,7 @@ Cours pour nous rappeler les bases du web. Effectué au CFPT, à Genève.
 
 Plus d'informations ici : https://laravel.com/docs/5.6#installation
 
-### À l'intérieur du répertoire backend
+### À l'intérieur du répertoire "backend"
 
 * Téléchargement des dépendances composer : composer install
 * Téléchargement des dépendances npm : npm install
