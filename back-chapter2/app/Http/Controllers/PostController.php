@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Image;
 use App\Post;
+use App\Image as ImageModel;
 use DB;
 use Storage;
 
@@ -83,6 +85,102 @@ class PostController extends Controller
         }, 1);
 
         return back()->with('status', 'Votre annonce a été publiée !');
+    }
+
+    /**
+     * edit one post by id
+     * 
+     * @param int $id Post Identifier 
+     * 
+     * @return Response 
+     */
+    public function edit($id)
+    {
+        $post = Post::find($id);
+
+        return view('edit', ['post' => $post]);
+    }
+
+    /**
+     * update post by id
+     * 
+     * @param int $id Post Identifier 
+     * 
+     * @return Response 
+     */
+    public function update($id, UpdatePostRequest $request)
+    {
+        DB::transaction(function () use ($request, $id) {
+
+            $currentImg = $request->input('current_cover_images');
+            $newImg = $request->file('new_cover_images');
+            $oldImg = ImageModel::where('post_id', $id)->get();
+
+            //remove selected images who are already uploaded
+            foreach ($oldImg as $img) {
+                if (!in_array($img->id, $currentImg)) {
+                    //try to delete image from database, if error cancel storage delete
+                    try {
+                        ImageModel::where('id', $img->id)->delete();
+                    } catch (\Exception $e) {
+                        throw new \Exception('Unable to delete image from database!');
+                    }
+
+                    //try to delete from storage, rollback database if error
+                    try {
+                        Storage::delete("public/{$img->name}");
+                    } catch (\Exception $e) {
+                        throw new \Exception('Unable to delete image from link!');
+                    }
+                }
+            }
+
+            $paths = [];
+
+            //upload new image
+            if (is_array($newImg)) {
+                foreach ($newImg as $newImg) {
+                    $filename = "cover_image-" . uniqid(time()) . ".{$newImg->getClientOriginalExtension()}";
+
+                    $imgResize = Image::make($newImg)->fit(self::DEFAULT_IMG_WIDTH, self::DEFAULT_IMG_HEIGHT, function ($constraint) {
+                        //keep the maximal original image size
+                        $constraint->upsize();
+                    });
+
+                    //save in storage/app...
+                    $path = self::FOLDER_PATH . '/' . $filename;
+                    
+                    try {
+                        $imgResize->save(storage_path("app/public/{$path}"));
+                        $paths[] = new \App\Image(['name' => $path]);
+                    } catch (Exception $e) {
+                        //upload failed... image isn't saved
+                    }
+                }
+            }
+
+            //create new post
+            $post = Post::find($id);
+            $post->description = $request->message;
+            
+            //attach images to the post
+            if ($post->save()) {
+                if (count($paths) > 0) {
+                    if (!$post->images()->saveMany($paths)) {
+                        $deleteImg = [];
+
+                        foreach ($paths as $image) {
+                            $deleteImg[] = "public/{$image->name}";
+                        }
+
+                        Storage::delete($deleteImg);
+                    }
+                }
+            }
+ 
+        }, 1);
+
+        return redirect('/')->with('status', 'L\'annonce a été modifiée avec succès !');
     }
 
     /**

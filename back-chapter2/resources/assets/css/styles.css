@@ -93,7 +93,7 @@ header .nav .nav-link:hover{
     border-radius: 0px;
 }
 
-#content #new-post .msg {
+#content .msg {
     outline: none;
     border: none;
     border-radius: 0px;
@@ -113,6 +113,11 @@ header .nav .nav-link:hover{
 #content .text-muted img {
     width: 20%;
     max-width: 20%;
+}
+
+#content #edit-post .text-muted img {
+    width: 50%;
+    max-width: 50%;
 }
 
 #content .card-header form {

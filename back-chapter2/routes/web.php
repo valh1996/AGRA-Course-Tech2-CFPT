@@ -12,5 +12,8 @@
 */
 
 Route::get('/', 'PostController@index')->name('post.index');
+Route::get('/post/{id}/edit', 'PostController@edit')->where(['id' => '[0-9]+'])->name('post.edit');
+
 Route::post('/post/add', 'PostController@store')->name('post.add');
 Route::delete('/post/{id}/del', 'PostController@delete')->where(['id' => '[0-9]+'])->name('post.del');
+Route::put('/post/{id}/update', 'PostController@update')->where(['id' => '[0-9]+'])->name('post.update');
