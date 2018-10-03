@@ -23,6 +23,6 @@ Plus d'informations ici : https://laravel.com/docs/5.6#installation
 * créer le fichier ".env" à la racine
 * Copier le contenu du fichier ".env.example" à l'intérieur du fichier .env et sauvegarder
 * Générer une nouvelle clé pour l'application : `php artisan key:generate`
-* Ouvrir à  nouveau le fichier .env et modifier uniquement les variables "APP_", "DB_". Puis sauvegarder et quitter...
+* Ouvrir à  nouveau le fichier .env et modifier uniquement les variables préfixées par "APP_", "DB_". Puis sauvegarder et quitter...
 * Déployer les tables dans la base de données (/!\ configurer .env avant) : `php artisan migrate`
 * Se rendre à la racine du site /public ou configurer le virtualhost pour qu'il pointe dans le dossier public
